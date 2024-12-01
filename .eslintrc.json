@@ -1,3 +1,28 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "env": {
+    "browser": true, // Defines globals for browser environment (e.g., window, document)
+    "es2021": true, // Allows features from ES2021 (like optional chaining)
+    "node": true // Defines globals for Node.js environment
+  },
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser", // Tells ESLint to use the TypeScript parser
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module" //By setting "module", ESLint expects ES6 module syntax, import and export statements instead of CommonJS’s require and module.exports
+  },
+  "plugins": [
+    "@typescript-eslint" // Adds TypeScript-specific linting rules
+  ],
+  "rules": {
+    // "semi": ["error", "always"],          // Enforces semicolons at the end of statements
+    "quotes": ["error", "double"], // Enforces single quotes for strings
+    "no-unused-vars": "warn", // Warns on variables that are declared but not used
+    "react/react-in-jsx-scope": "off", // Disables the need to import React in every file (useful for Next.js)
+    "@typescript-eslint/no-explicit-any": "warn" // Warns on using `any` type in TypeScript
+  }
 }
