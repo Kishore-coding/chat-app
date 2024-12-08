@@ -8,21 +8,8 @@ if (!cached) {
   cached = global.mongoose = { conn: null, promise: null };
 }
 
-let isConnected = false; // Track the connection status
 
 async function connectToDatabase() {
-  if (isConnected) {
-    console.log("MongoDB is already connected");
-    return;
-  }
-
-  try {
-    const db = await mongoose.connect(MONGODB_URI);
-    isConnected = db.connections[0].readyState === 1;
-    console.log("Connected to MongoDB");
-  } catch (error) {
-    console.error("MongoDB connection error:", error);
-  }
   if (cached.conn) {
     return cached.conn;
   }

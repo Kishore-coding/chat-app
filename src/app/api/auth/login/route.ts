@@ -10,10 +10,10 @@ const JWT_SECRET = process.env.JWT_SECRET || "";
 export async function POST(request: Request) {
   await connectToDatabase();
 
-  const { userName, password } = await request.json();
+  const {  password, email } = await request.json();
 
   // Find the user in MongoDB
-  const user = await User.findOne({ userName });
+  const user = await User.findOne({ email });
   if (!user) {
     return NextResponse.json({ error: "User not found" }, { status: 400 });
   }
@@ -25,8 +25,8 @@ export async function POST(request: Request) {
   }
 
   // Generate JWT token
-  const token = jwt.sign({ userName: user.userName }, JWT_SECRET, {
+  const token = jwt.sign({ email: user.email }, JWT_SECRET, {
     expiresIn: "24h",
   });
-  return NextResponse.json({ token });
+  return NextResponse.json({ token, message: "Login Successful" });
 }

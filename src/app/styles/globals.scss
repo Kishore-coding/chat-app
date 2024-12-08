@@ -7,7 +7,7 @@
 }
 
 @font-face {
-  font-family: "Roboto";
+  font-family: "Roboto Bold";
   src: url("../font/Roboto-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
@@ -19,4 +19,34 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-family: "Roboto", sans-serif; /* Set the font for the whole body */
+}
+
+h1,h2,h3{
+  font-size: bold;
+  color: $color-primary;
+  letter-spacing: 1.2px;
+}
+
+h1{
+  font-size: 32px;
+}
+h2{
+  font-size: 24px;
+}
+h5{
+  font-size: 20px;
+}
+
+p{
+  font-size: 16px;
+  color: $color-secondary;
+}
+
+input{
+  &:focus{
+    border: 0;
+    outline: none;
+    box-shadow: none;
+  }
+ 
 }

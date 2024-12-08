@@ -1,10 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import messageReducer from "./slice/messageslice";
+import authReducer from "./slice/authslice"
+import registerReducer from "./slice/registerSlice"
 
 
 export const store = configureStore({
     reducer:{
-        messages:messageReducer
+        messages:messageReducer,
+        auth:authReducer,
+        register:registerReducer
     }
 })
 

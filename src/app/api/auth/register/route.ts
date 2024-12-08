@@ -9,22 +9,30 @@ export const POST = async (request: Request) => {
   await connectToDatabase();
   console.log("MongoDB connected successfully in the API route");
 
-  const { userName, password } = await request.json();
+  try {
+    const { userName, password, email } = await request.json();
 
-  const existingUser = await User.findOne({ userName });
-  if (existingUser) {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return NextResponse.json(
+        { error: "User email already exist" },
+        { status: 400 }
+      );
+    }
+
+    const hashpassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ userName, password: hashpassword, email });
+    await newUser.save();
+
     return NextResponse.json(
-      { error: "User email already exist" },
-      { status: 400 }
+      { message: "User registered successfully" },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { message: "Internal server error" },
+      { status: 500 }
     );
   }
-
-  const hashpassword = await bcrypt.hash(password, 10);
-  const newUser = new User({ userName, password: hashpassword });
-  await newUser.save();
-
-  return NextResponse.json(
-    { message: "User registered successfully" },
-    { status: 201 }
-  );
 };
